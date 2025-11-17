@@ -293,20 +293,31 @@ main {
 
 .hero-tags {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
   margin-bottom: 1.8rem;
 }
 
 .tag {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.4rem;
   font-size: 0.78rem;
   text-transform: uppercase;
   letter-spacing: 0.16em;
   color: var(--muted);
-  padding: 0.4rem 0.9rem;
-  border-radius: var(--radius-pill);
-  border: 1px solid rgba(148, 163, 184, 0.42);
-  background: rgba(15, 23, 42, 0.9);
+  padding: 0;
+  border-radius: 0;
+  border: none;
+  background: transparent;
+  cursor: default;
+}
+
+.tag::before {
+  content: "•";
+  color: var(--accent);
+  font-size: 0.9rem;
 }
 
 .hero-actions {
@@ -420,10 +431,11 @@ main {
 }
 
 .hero-pill {
-  border-radius: var(--radius-md);
-  border: 1px solid rgba(148, 163, 184, 0.55);
-  background: rgba(15, 23, 42, 0.94);
-  padding: 0.65rem 0.8rem;
+  border-radius: 0;
+  border-left: 2px solid rgba(148, 163, 184, 0.55);
+  background: transparent;
+  padding: 0.4rem 0 0.4rem 0.9rem;
+  cursor: default;
 }
 
 .hero-pill:nth-child(3) {
@@ -579,4 +591,3 @@ main {
     border-radius: 22px;
   }
 }
-
