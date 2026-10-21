@@ -591,3 +591,38 @@ main {
     border-radius: 22px;
   }
 }
+
+
+/* October 2026 positioning preview — intentionally isolated from the live branch */
+:root { --accent: #57d6c1; --accent-soft: rgba(87, 214, 193, .11); }
+.brand-mark { border-radius: 8px; border-color: rgba(148,163,184,.35); letter-spacing: .16em; font-weight: 750; font-size: .88rem; }
+.brand-mark::before { content: "A"; display: inline-grid; place-items: center; width: 1.7rem; height: 1.7rem; flex: 0 0 1.7rem; border-radius: 5px; background: linear-gradient(140deg,#55d6c3,#9ac7ff); color:#05101b; font-size:.86rem; letter-spacing:0; font-weight: 900; box-shadow:none; }
+.hero-copy h1 { font-size: clamp(2.5rem, 2rem + 2vw, 3.75rem); line-height: 1.14; max-width: 16ch; }
+.hero-layout { grid-template-columns: minmax(0, 1.2fr) minmax(0, .9fr); }
+.hero-card { box-shadow: 0 24px 70px rgba(1,5,18,.5); }
+.hero-card-title { color: #80e6d7; letter-spacing:.17em; }
+.hero-card-text { font-size:1.15rem; letter-spacing:-.01em; }
+.hero-grid { grid-template-columns: 1fr; }
+.hero-pill:nth-child(3) { grid-column:auto; }
+.hero-pill { padding:.9rem 0 .9rem 1rem; border-left-color:rgba(87,214,193,.62); }
+.pill-label { color:#e5e7eb; font-size:.9rem; }
+.tag::before { color: #57d6c1; }
+.nav-link::after { background:linear-gradient(90deg,#57d6c1,#85abff); }
+.button.primary { background:linear-gradient(115deg,#57d6c1,#8bb7f5); }
+.section-header .eyebrow { margin-bottom: .95rem; color:#66dcca; font-size:.72rem; }
+.callbook-section { background:linear-gradient(140deg,rgba(11,30,47,.95),rgba(3,9,23,.96)) !important; }
+.callbook-feature { display:grid; grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr); gap:3rem; align-items:center; }
+.callbook-copy h2 { margin:.25rem 0 1.1rem; font-size:clamp(2.2rem,2rem + 1.5vw,3.2rem); letter-spacing:-.04em; }
+.callbook-copy p:not(.eyebrow) { line-height:1.75; color:var(--muted); }
+.callbook-copy .callbook-statement { color:var(--fg) !important; font-size:1.35rem; font-weight:650; letter-spacing:-.02em; }
+.callbook-copy .callbook-disclaimer { font-size:.83rem; border-top:1px solid var(--border-subtle); padding-top:1rem; margin-top:1.5rem; }
+.development-tag { display:inline-flex; margin-left:.7rem; padding:.28rem .55rem; border:1px solid rgba(87,214,193,.4); border-radius:4px; font-size:.64rem; letter-spacing:.04em; text-transform:uppercase; vertical-align:middle; color:#a6efe4; }
+.callbook-diagram { background:rgba(2,6,23,.4); padding:2rem; border-radius:22px; border:1px solid rgba(148,163,184,.2); }
+.flow-node { display:grid; grid-template-columns: 2.1rem 1fr; column-gap:.8rem; row-gap:.3rem; align-items:center; padding:.85rem 0; }
+.flow-node span { grid-row:span 2; display:grid; place-items:center; width:2.1rem; height:2.1rem; border:1px solid rgba(87,214,193,.58); border-radius:8px; color:#a6efe4; font-size:.8rem; }
+.flow-node strong { font-size:1.08rem; letter-spacing:-.02em; }
+.flow-node small { font-size:.8rem; color:var(--muted); }
+.flow-join { height:1.15rem; border-left:1px solid rgba(87,214,193,.4); margin-left:1rem; }
+.section-footnote { max-width:760px; }
+@media (max-width:900px) { .callbook-feature { grid-template-columns: 1fr; gap:1.5rem; } .hero-layout { grid-template-columns:1fr; } }
+@media (max-width:640px) { :root { --header-height: 116px; } .site-header > .shell { padding-top:.55rem; padding-bottom:.45rem; align-content:center; gap:.45rem; } .nav { width:100%; justify-content:center; gap:.45rem 1rem; font-size:.79rem; } .brand-mark { font-size:.76rem; padding:.25rem .55rem; } .brand-mark::before { width:1.45rem; height:1.45rem; flex-basis:1.45rem; } .hero-copy h1 { font-size:2.65rem; } .callbook-diagram { padding:1.2rem; } .development-tag { margin:.4rem 0 0; } }
