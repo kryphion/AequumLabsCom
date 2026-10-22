@@ -647,12 +647,3 @@ button:focus-visible {
   color: var(--muted);
   font-size: 0.9375rem;
 }
-
-/* Draft placeholders: visible in preview, must be resolved before publishing. */
-
-.todo {
-  padding: 0.6rem 0.85rem;
-  border: 2px dashed var(--todo-border);
-  border-radius: 0.25rem;
-  font-style: italic;
-}
