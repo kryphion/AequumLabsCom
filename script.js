@@ -49,5 +49,34 @@ document.addEventListener("DOMContentLoaded", () => {
 
   window.addEventListener("scroll", handleScroll, { passive: true });
   handleScroll();
+
+  // Theme toggle: dark by default; the choice is remembered in localStorage.
+  const root = document.documentElement;
+  const toggle = document.querySelector(".theme-toggle");
+  const themeColor = document.querySelector('meta[name="theme-color"]');
+
+  const applyTheme = (theme) => {
+    root.setAttribute("data-theme", theme);
+    const label = theme === "dark" ? "Switch to light mode" : "Switch to dark mode";
+    if (toggle) {
+      toggle.setAttribute("aria-label", label);
+      toggle.setAttribute("title", label);
+    }
+    if (themeColor) {
+      themeColor.setAttribute("content", theme === "dark" ? "#101D32" : "#F5F3EE");
+    }
+  };
+
+  applyTheme(root.getAttribute("data-theme") === "light" ? "light" : "dark");
+
+  if (toggle) {
+    toggle.addEventListener("click", () => {
+      const next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
+      applyTheme(next);
+      try {
+        localStorage.setItem("ae-theme", next);
+      } catch (e) {}
+    });
+  }
 });
 

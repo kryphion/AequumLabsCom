@@ -1,5 +1,77 @@
-/* Aequum Labs site styles. Colors and base tokens come from assets/brand/aequum-tokens.css
-   (Brand Pack v2); this file only uses those tokens. */
+/* Aequum Labs site styles. Brand colors come from assets/brand/aequum-tokens.css
+   (Brand Pack v2); this file maps them onto light and dark themes. */
+
+/* Themes ------------------------------------------------------------------ */
+
+/* Dark is the default (also used if the theme script cannot run). */
+:root {
+  color-scheme: dark;
+  --surface: var(--ae-navy);
+  --raised: color-mix(in srgb, var(--ae-navy) 86%, var(--ae-sky));
+  --text: var(--ae-white);
+  --muted: color-mix(in srgb, var(--ae-white) 78%, var(--ae-navy));
+  --eyebrow: var(--ae-sky);
+  --rule: color-mix(in srgb, var(--ae-white) 20%, transparent);
+  --rule-strong: var(--ae-white);
+  --focus: var(--ae-white);
+  --button-border: var(--ae-orange);
+  --button-hover-bg: var(--ae-white);
+  --button-hover-text: var(--ae-navy);
+  --feature-bg: var(--raised);
+  --alt-bg: var(--raised);
+  --alt-eyebrow: var(--ae-sky);
+  --panel-bg: var(--ae-navy);
+  --note-bg: var(--ae-navy);
+  --note-text: var(--ae-white);
+  --tag-now-border: var(--ae-sky);
+  --todo-border: var(--ae-orange);
+  --motif-a: var(--ae-white);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --surface: var(--ae-white);
+  --text: var(--ae-navy);
+  --muted: var(--ae-gray);
+  --eyebrow: var(--ae-gray);
+  --rule: color-mix(in srgb, var(--ae-gray) 35%, transparent);
+  --rule-strong: var(--ae-navy);
+  --focus: var(--ae-navy);
+  --button-border: var(--ae-navy);
+  --button-hover-bg: var(--ae-navy);
+  --button-hover-text: var(--ae-white);
+  --feature-bg: var(--ae-navy);
+  --alt-bg: var(--ae-sky);
+  --alt-eyebrow: var(--ae-navy);
+  --panel-bg: var(--ae-white);
+  --note-bg: var(--ae-sky);
+  --note-text: var(--ae-navy);
+  --tag-now-border: var(--ae-navy);
+  --motif-a: var(--ae-navy);
+}
+
+/* Navy feature bands stay dark in both themes. */
+.band-feature,
+.site-footer {
+  --text: var(--ae-white);
+  --muted: color-mix(in srgb, var(--ae-white) 78%, var(--ae-navy));
+  --eyebrow: var(--ae-sky);
+  --rule: color-mix(in srgb, var(--ae-white) 20%, transparent);
+  --focus: var(--ae-white);
+  --button-border: var(--ae-orange);
+  --button-hover-bg: var(--ae-white);
+  --button-hover-text: var(--ae-navy);
+  --tag-now-border: var(--ae-sky);
+  --todo-border: var(--ae-sky);
+  background: var(--feature-bg);
+  color: var(--text);
+}
+
+.site-footer {
+  background: var(--ae-navy);
+}
+
+/* Base -------------------------------------------------------------------- */
 
 *,
 *::before,
@@ -19,8 +91,8 @@ html {
 
 body {
   margin: 0;
-  background: var(--ae-bg);
-  color: var(--ae-text);
+  background: var(--surface);
+  color: var(--text);
   font: 400 1.0625rem/1.6 var(--ae-font);
 }
 
@@ -58,15 +130,10 @@ a {
 }
 
 a:focus-visible,
-.ae-button:focus-visible {
-  outline: 3px solid var(--ae-navy);
+button:focus-visible {
+  outline: 3px solid var(--focus);
   outline-offset: 4px;
   border-radius: 2px;
-}
-
-.ae-dark a:focus-visible,
-.ae-dark .ae-button:focus-visible {
-  outline-color: var(--ae-white);
 }
 
 .shell {
@@ -82,35 +149,32 @@ a:focus-visible,
   top: -4rem;
   z-index: 100;
   padding: 0.75rem 1rem;
-  background: var(--ae-navy);
-  color: var(--ae-white);
+  background: var(--ae-orange);
+  color: var(--ae-navy);
+  font-weight: 600;
 }
 
 .skip-link:focus {
   top: 1rem;
 }
 
-/* Buttons and links ------------------------------------------------------ */
+/* Buttons and links ------------------------------------------------------- */
 
 .ae-button {
   display: inline-block;
+  border-color: var(--button-border);
   text-decoration: none;
-  transition: background-color 0.15s ease, color 0.15s ease;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
 }
 
 .ae-button:hover {
-  background: var(--ae-navy);
-  color: var(--ae-white);
+  background: var(--button-hover-bg);
+  color: var(--button-hover-text);
+  border-color: var(--button-hover-bg);
 }
 
-.ae-dark .ae-button {
-  border-color: var(--ae-orange);
-}
-
-.ae-dark .ae-button:hover {
-  background: var(--ae-white);
-  color: var(--ae-navy);
-  border-color: var(--ae-white);
+.ae-button:focus-visible {
+  outline: 3px solid var(--focus);
 }
 
 .text-link {
@@ -128,13 +192,13 @@ a:focus-visible,
 /* Header ------------------------------------------------------------------ */
 
 .site-header {
-  background: var(--ae-bg);
+  background: var(--surface);
   border-bottom: 1px solid transparent;
   transition: border-color 0.15s ease;
 }
 
 .site-header.scrolled {
-  border-bottom-color: color-mix(in srgb, var(--ae-gray) 35%, transparent);
+  border-bottom-color: var(--rule);
 }
 
 .header-layout {
@@ -155,6 +219,15 @@ a:focus-visible,
   width: 200px;
   height: auto;
   object-fit: contain;
+}
+
+.logo-for-light,
+:root[data-theme="light"] .logo-for-dark {
+  display: none;
+}
+
+:root[data-theme="light"] .logo-for-light {
+  display: block;
 }
 
 .site-nav {
@@ -178,6 +251,43 @@ a:focus-visible,
 
 .nav-cta {
   padding: 0.55rem 1rem;
+}
+
+.theme-toggle {
+  display: inline-grid;
+  place-items: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: var(--ae-radius);
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  border-color: var(--rule-strong);
+}
+
+.theme-toggle svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* The icon shows the theme you will switch to. */
+.icon-moon,
+:root[data-theme="light"] .icon-sun {
+  display: none;
+}
+
+:root[data-theme="light"] .icon-moon {
+  display: block;
 }
 
 @media (min-width: 48rem) {
@@ -204,29 +314,22 @@ a:focus-visible,
   padding-block: clamp(3.5rem, 8vw, 6rem);
 }
 
-.band-sky {
-  background: var(--ae-sky);
+.band-alt {
+  --eyebrow: var(--alt-eyebrow);
+  background: var(--alt-bg);
 }
 
 .band-rule {
-  border-top: 1px solid color-mix(in srgb, var(--ae-gray) 35%, transparent);
+  border-top: 1px solid var(--rule);
 }
 
 .eyebrow {
   margin-bottom: 0.75rem;
-  color: var(--ae-muted);
+  color: var(--eyebrow);
   font-size: 0.8125rem;
   font-weight: 650;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-}
-
-.ae-dark .eyebrow {
-  color: var(--ae-sky);
-}
-
-.band-sky .eyebrow {
-  color: var(--ae-navy);
 }
 
 .section-title {
@@ -237,6 +340,7 @@ a:focus-visible,
 
 .section-intro {
   max-width: 62ch;
+  margin-bottom: 2.5rem;
   font-size: 1.125rem;
 }
 
@@ -271,6 +375,26 @@ a:focus-visible,
   font-size: clamp(1.0625rem, 1.6vw, 1.1875rem);
 }
 
+.status-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.75rem;
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  font-weight: 600;
+}
+
+.status-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.status-list .tag {
+  margin: 0;
+}
+
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
@@ -290,6 +414,22 @@ a:focus-visible,
   margin-left: 12%;
 }
 
+.motif-a {
+  fill: var(--motif-a);
+}
+
+.motif-e {
+  fill: var(--ae-sky);
+}
+
+.motif-gap {
+  fill: var(--surface);
+}
+
+.motif-center {
+  fill: var(--ae-orange);
+}
+
 @media (min-width: 56rem) {
   .hero-layout {
     grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
@@ -301,33 +441,7 @@ a:focus-visible,
   }
 }
 
-/* Two sides --------------------------------------------------------------- */
-
-.split {
-  display: grid;
-  gap: 2.5rem;
-}
-
-@media (min-width: 48rem) {
-  .split {
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-  }
-}
-
-.side {
-  padding-top: 1.5rem;
-  border-top: 2px solid var(--ae-sky);
-}
-
-.side h3 {
-  margin-bottom: 0.75rem;
-  font-size: 1.625rem;
-}
-
-.side p:not(.tag) {
-  max-width: 52ch;
-}
+/* Tags -------------------------------------------------------------------- */
 
 .tag {
   display: inline-flex;
@@ -336,14 +450,14 @@ a:focus-visible,
   margin-bottom: 1rem;
   padding: 0.3rem 0.65rem;
   border-radius: 0.25rem;
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 650;
   letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
 .tag-now {
-  border: 1px solid var(--ae-sky);
+  border: 1px solid var(--tag-now-border);
 }
 
 .tag-dev {
@@ -376,7 +490,7 @@ a:focus-visible,
 
 .service {
   padding-top: 1.25rem;
-  border-top: 3px solid var(--ae-navy);
+  border-top: 3px solid var(--rule-strong);
 }
 
 .service h3 {
@@ -387,7 +501,7 @@ a:focus-visible,
   max-width: 50rem;
   margin-top: 3.5rem;
   padding: 1.75rem 2rem;
-  border: 1px solid color-mix(in srgb, var(--ae-gray) 45%, transparent);
+  border: 1px solid var(--rule);
   border-left: 6px solid var(--ae-orange);
   border-radius: var(--ae-radius);
 }
@@ -396,16 +510,12 @@ a:focus-visible,
   margin-bottom: 0.6rem;
 }
 
-.callout-note {
-  font-weight: 600;
-}
-
-/* Building ---------------------------------------------------------------- */
+/* Tools ------------------------------------------------------------------- */
 
 .steps {
   display: grid;
   gap: 1rem;
-  margin: 2.5rem 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
@@ -419,7 +529,7 @@ a:focus-visible,
 
 .steps li {
   padding: 1.5rem;
-  background: var(--ae-white);
+  background: var(--panel-bg);
   border-radius: var(--ae-radius);
 }
 
@@ -436,7 +546,7 @@ a:focus-visible,
   font-size: 1.5rem;
 }
 
-/* Principles -------------------------------------------------------------- */
+/* How I work -------------------------------------------------------------- */
 
 .principles {
   display: grid;
@@ -448,6 +558,11 @@ a:focus-visible,
     grid-template-columns: repeat(3, 1fr);
     gap: 2.5rem;
   }
+}
+
+.principles article {
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
 }
 
 .principles h3 {
@@ -475,36 +590,13 @@ a:focus-visible,
 
 .name-note {
   padding: 1.75rem;
-  background: var(--ae-sky);
+  background: var(--note-bg);
+  color: var(--note-text);
   border-radius: var(--ae-radius);
 }
 
 .name-note h3 {
   margin-bottom: 0.6rem;
-}
-
-/* Lab --------------------------------------------------------------------- */
-
-.lab-list {
-  display: grid;
-  gap: 2rem;
-}
-
-@media (min-width: 48rem) {
-  .lab-list {
-    grid-template-columns: 1fr 1fr;
-    gap: 3rem;
-  }
-}
-
-.lab-list h3 {
-  margin-bottom: 0.4rem;
-  font-size: 1.125rem;
-}
-
-.lab-list p {
-  max-width: 54ch;
-  color: var(--ae-muted);
 }
 
 /* Contact and footer ------------------------------------------------------ */
@@ -529,7 +621,7 @@ a:focus-visible,
 
 .site-footer {
   padding-block: 2.5rem;
-  border-top: 1px solid color-mix(in srgb, var(--ae-white) 18%, transparent);
+  border-top: 1px solid var(--rule);
 }
 
 .footer-layout {
@@ -558,7 +650,7 @@ a:focus-visible,
 
 .footer-text {
   margin: 0;
-  color: var(--ae-sky);
+  color: var(--muted);
   font-size: 0.9375rem;
 }
 
@@ -566,11 +658,7 @@ a:focus-visible,
 
 .todo {
   padding: 0.6rem 0.85rem;
-  border: 2px dashed var(--ae-orange);
+  border: 2px dashed var(--todo-border);
   border-radius: 0.25rem;
   font-style: italic;
-}
-
-.todo-dark {
-  border-color: var(--ae-sky);
 }
