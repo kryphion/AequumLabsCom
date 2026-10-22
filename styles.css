@@ -407,11 +407,11 @@ button:focus-visible {
   pointer-events: none;
 }
 
+/* The a/e pair is always shown whole (Mark's call, 2026-10-22: no edge bleed). */
 .hero-motif svg {
-  width: 125%;
-  max-width: none;
+  width: 100%;
+  max-width: 24rem;
   height: auto;
-  margin-left: 12%;
 }
 
 .motif-a {
@@ -436,8 +436,8 @@ button:focus-visible {
   }
 
   .hero-motif svg {
-    width: 150%;
-    margin-left: 8%;
+    max-width: 32rem;
+    margin-left: auto;
   }
 }
 
