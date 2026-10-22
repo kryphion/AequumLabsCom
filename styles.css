@@ -586,6 +586,13 @@ button:focus-visible {
   margin-bottom: 0.6rem;
 }
 
+.note-tagline {
+  margin-bottom: 0.5rem;
+  font-size: 1.375rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
 /* Contact and footer ------------------------------------------------------ */
 
 .contact-layout {
