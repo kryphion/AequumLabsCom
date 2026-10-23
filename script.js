@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
     toggle.addEventListener("click", () => {
       const next = root.getAttribute("data-theme") === "light" ? "dark" : "light";
       applyTheme(next);
+      if (typeof window.gtag === "function") window.gtag("event", "theme_toggle", { theme: next });
       try {
         localStorage.setItem("ae-theme", next);
       } catch (e) {}
