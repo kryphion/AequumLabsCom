@@ -26,7 +26,6 @@
   --button-border: var(--ae-orange);
   --button-hover-bg: var(--ae-white);
   --button-hover-text: var(--ae-navy);
-  --tag-now-border: var(--ae-sky);
   --motif-a: var(--ae-white);
   --contour: color-mix(in srgb, var(--ae-sky) 14%, var(--ae-navy));
 }
@@ -37,14 +36,13 @@
   --surface: var(--ae-white);
   --text: var(--ae-navy);
   --muted: var(--ae-gray);
-  --eyebrow: var(--ae-plum);
+  --eyebrow: var(--ae-gray);
   --rule: color-mix(in srgb, var(--ae-gray) 35%, transparent);
   --rule-strong: var(--ae-navy);
   --focus: var(--ae-navy);
   --button-border: var(--ae-navy);
   --button-hover-bg: var(--ae-navy);
   --button-hover-text: var(--ae-white);
-  --tag-now-border: var(--ae-navy);
   --motif-a: var(--ae-navy);
   --contour: var(--ae-sky);
 }
@@ -581,14 +579,17 @@ button:focus-visible {
   text-transform: uppercase;
 }
 
+/* What's available now gets the solid tag; what's in development gets a quieter
+   dashed outline, so the difference doesn't rely on color alone. */
 .tag-now {
-  border: 1px solid var(--tag-now-border);
+  background: var(--text);
+  color: var(--surface);
+  border: 1px solid var(--text);
 }
 
 .tag-dev {
-  background: var(--ae-plum);
-  color: var(--ae-white);
-  border: 1px solid var(--ae-plum);
+  color: var(--text);
+  border: 1px dashed var(--muted);
 }
 
 .center-mark {
