@@ -499,6 +499,22 @@ button:focus-visible {
   overflow: visible;
 }
 
+/* On phones and tablets the pair moves above the headline as a small opening mark,
+   instead of trailing after the buttons. */
+@media (max-width: 55.99rem) {
+  .hero-layout {
+    gap: 1.75rem;
+  }
+
+  .hero-motif {
+    order: -1;
+  }
+
+  .hero-motif svg {
+    max-width: 8.5rem;
+  }
+}
+
 .motif-a {
   fill: var(--motif-a);
 }
