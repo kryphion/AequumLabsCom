@@ -467,10 +467,15 @@ button:focus-visible {
 }
 
 /* Stacked rows with one shared tag column, so both tags are the same width
-   and both labels start at the same point. */
+   and both labels start at the same point. The hero button below uses the same
+   width (--hero-col), so tags and button form one aligned column. */
+.hero-copy {
+  --hero-col: 10rem;
+}
+
 .status-list {
   display: grid;
-  grid-template-columns: max-content minmax(0, 1fr);
+  grid-template-columns: minmax(var(--hero-col), max-content) minmax(0, 1fr);
   gap: 0.75rem 0.85rem;
   margin: 1.75rem 0 0;
   padding: 0;
@@ -487,6 +492,11 @@ button:focus-visible {
 
 .status-list .tag {
   margin: 0;
+}
+
+.hero-actions .ae-button {
+  min-width: var(--hero-col);
+  text-align: center;
 }
 
 .hero-actions {
