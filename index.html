@@ -71,9 +71,9 @@
           />
         </a>
         <nav class="site-nav" aria-label="Primary">
-          <a class="nav-link" href="#services">Services</a>
-          <a class="nav-link" href="#about">About</a>
-          <a class="nav-link" href="#tools">Tools</a>
+          <a class="nav-link" href="#services" data-track="nav" data-track-location="header">Services</a>
+          <a class="nav-link" href="#about" data-track="nav" data-track-location="header">About</a>
+          <a class="nav-link" href="#tools" data-track="nav" data-track-location="header">Tools</a>
           <button class="theme-toggle" type="button" aria-label="Switch to light mode" title="Switch to light mode">
             <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
               <circle cx="12" cy="12" r="4" />
@@ -83,7 +83,7 @@
               <path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5Z" />
             </svg>
           </button>
-          <a class="ae-button nav-cta" href="#contact">Get in touch</a>
+          <a class="ae-button nav-cta" href="#contact" data-track="cta" data-track-location="header">Get in touch</a>
         </nav>
       </div>
     </header>
@@ -107,8 +107,8 @@
                 <li><span class="tag tag-dev">In development</span> AI planning tools</li>
               </ul>
               <div class="hero-actions">
-                <a class="ae-button" href="#contact">Get in touch</a>
-                <a class="text-link" href="#tools">See what I'm building</a>
+                <a class="ae-button" href="#contact" data-track="cta" data-track-location="hero">Get in touch</a>
+                <a class="text-link" href="#tools" data-track="cta" data-track-location="hero">See what I'm building</a>
               </div>
             </div>
           </div>
@@ -131,7 +131,7 @@
       </section>
 
       <!-- 2. What you can hire me for today -->
-      <section class="band band-inverse" id="services" aria-labelledby="services-title">
+      <section class="band band-inverse" id="services" data-track-section="services" aria-labelledby="services-title">
         <svg class="contour contour-top" viewBox="0 0 180 160" aria-hidden="true" focusable="false"><use href="#motif-ae" /></svg>
         <div class="shell">
           <p class="eyebrow">Services, available now</p>
@@ -170,7 +170,7 @@
       </section>
 
       <!-- 3. Why trust me -->
-      <section class="band" id="about" aria-labelledby="about-title">
+      <section class="band" id="about" data-track-section="about" aria-labelledby="about-title">
         <div class="shell about-layout">
           <div>
             <p class="eyebrow">About</p>
@@ -192,7 +192,7 @@
               Along the way I started building AI tools, and led an agency AI program that grew
               from a 25-person pilot to more than 500 people.
             </p>
-            <p><a class="text-link" href="https://markschulz.me/" target="_blank" rel="noopener">Full background at markschulz.me<span class="visually-hidden"> (opens in a new tab)</span></a></p>
+            <p><a class="text-link" href="https://markschulz.me/" target="_blank" rel="noopener" data-track="resume" data-track-location="about">Full background at markschulz.me<span class="visually-hidden"> (opens in a new tab)</span></a></p>
           </div>
           <div class="name-note">
             <h3>Why “Aequum”?</h3>
@@ -206,7 +206,7 @@
       </section>
 
       <!-- 4. How AI fits: it helps, I decide -->
-      <section class="band band-inverse" aria-labelledby="principles-title">
+      <section class="band band-inverse" data-track-section="how-i-work" aria-labelledby="principles-title">
         <div class="shell">
           <h2 id="principles-title" class="section-title">How I work</h2>
           <p class="section-intro">
@@ -231,7 +231,7 @@
       </section>
 
       <!-- 5. What's coming, honestly labeled -->
-      <section class="band tone-sky" id="tools" aria-labelledby="tools-title">
+      <section class="band tone-sky" id="tools" data-track-section="tools" aria-labelledby="tools-title">
         <svg class="contour contour-top" viewBox="0 0 180 160" aria-hidden="true" focusable="false"><use href="#motif-ae" /></svg>
         <div class="shell">
           <p class="eyebrow">In development</p>
@@ -274,7 +274,7 @@
       </section>
 
       <!-- 6. The next step, for clients and peers -->
-      <section class="band tone-orange contact" id="contact" aria-labelledby="contact-title">
+      <section class="band tone-orange contact" id="contact" data-track-section="contact" aria-labelledby="contact-title">
         <svg class="contour contour-bottom" viewBox="0 0 180 160" aria-hidden="true" focusable="false"><use href="#motif-ae" /></svg>
         <div class="shell contact-layout">
           <div>
@@ -290,7 +290,7 @@
             </p>
           </div>
           <div class="contact-action">
-            <a class="ae-button" href="https://www.linkedin.com/in/mschulz/" target="_blank" rel="noopener">Message me on LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a>
+            <a class="ae-button" href="https://www.linkedin.com/in/mschulz/" target="_blank" rel="noopener" data-track="linkedin" data-track-location="contact">Message me on LinkedIn<span class="visually-hidden"> (opens in a new tab)</span></a>
           </div>
         </div>
       </section>
@@ -307,10 +307,10 @@
           loading="lazy"
         />
         <nav class="footer-nav" aria-label="Footer">
-          <a href="#services">Services</a>
-          <a href="#about">About</a>
-          <a href="#tools">Tools</a>
-          <a href="#contact">Contact</a>
+          <a href="#services" data-track="nav" data-track-location="footer">Services</a>
+          <a href="#about" data-track="nav" data-track-location="footer">About</a>
+          <a href="#tools" data-track="nav" data-track-location="footer">Tools</a>
+          <a href="#contact" data-track="nav" data-track-location="footer">Contact</a>
         </nav>
         <p class="footer-text">© 2026 Aequum Labs</p>
       </div>

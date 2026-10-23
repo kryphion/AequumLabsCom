@@ -79,6 +79,62 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // Analytics: GA4 events sent through the Google tag in <head>. Parameter names
+  // match the custom dimensions in GA (percent_scrolled, section, cta_text,
+  // cta_location). Nothing personal is collected.
+  const track = (name, params) => {
+    if (typeof window.gtag === "function") window.gtag("event", name, params);
+  };
+
+  // Clicks on tagged links: data-track says which event, data-track-location where.
+  const clickEvents = { cta: "cta_click", linkedin: "linkedin_contact", resume: "resume_click", nav: "nav_click" };
+  document.addEventListener("click", (event) => {
+    const link = event.target.closest("[data-track]");
+    if (!link || !clickEvents[link.dataset.track]) return;
+    const params = {
+      cta_text: link.firstChild ? link.firstChild.textContent.trim() : "",
+      cta_location: link.dataset.trackLocation || "",
+    };
+    const href = link.getAttribute("href") || "";
+    if (href.startsWith("#")) params.section = href.slice(1);
+    track(clickEvents[link.dataset.track], params);
+  });
+
+  // Scroll depth at 25, 50, 75, and 100 percent. Google's automatic scroll
+  // tracking already sends 90, under the same event name and parameter.
+  const depthMarks = [25, 50, 75, 100];
+  const sentDepths = new Set();
+  const checkScrollDepth = () => {
+    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+    const percent = scrollable <= 0 ? 100 : ((window.scrollY || window.pageYOffset) / scrollable) * 100;
+    depthMarks.forEach((mark) => {
+      if (percent >= mark - 0.5 && !sentDepths.has(mark)) {
+        sentDepths.add(mark);
+        track("scroll", { percent_scrolled: mark });
+      }
+    });
+    if (sentDepths.size === depthMarks.length) {
+      window.removeEventListener("scroll", checkScrollDepth);
+    }
+  };
+  window.addEventListener("scroll", checkScrollDepth, { passive: true });
+
+  // Section views: sent once per section when it crosses the middle of the screen,
+  // which works for short and tall sections alike.
+  if ("IntersectionObserver" in window) {
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          track("section_view", { section: entry.target.dataset.trackSection });
+          sectionObserver.unobserve(entry.target);
+        });
+      },
+      { rootMargin: "-45% 0px -45% 0px" }
+    );
+    document.querySelectorAll("[data-track-section]").forEach((s) => sectionObserver.observe(s));
+  }
+
   // Scroll reveals: content eases into place as it enters the viewport. Skipped
   // entirely for reduced motion or old browsers, so nothing is ever left hidden.
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
