@@ -1,74 +1,91 @@
 /* Aequum Labs site styles. Brand colors come from assets/brand/aequum-tokens.css
-   (Brand Pack v2); this file maps them onto light and dark themes. */
+   (Brand Pack v2); this file maps them onto tones and themes.
 
-/* Themes ------------------------------------------------------------------ */
+   Design idea, from the brand pack: related forms, different perspectives, shared
+   result; balance is productive, not static. In practice:
+   - Sections alternate between large navy and warm-white planes, with one sky plane
+     and one orange focal plane, for strong contrast in both themes.
+   - Proportions follow the golden ratio (phi = 1.618): hero, about, and contact
+     columns split 1.618 : 1, and heading sizes step up by phi.
+   - Motion only shows things coming into alignment: the a/e pair settles together
+     on load, and content and rules ease into place as they scroll into view. */
 
-/* Dark is the default (also used if the theme script cannot run). */
-:root {
-  color-scheme: dark;
+/* Tones ------------------------------------------------------------------- */
+
+/* Dark tone: the default page, the inverse bands in light mode, and the footer. */
+:root,
+:root[data-theme="light"] .band-inverse,
+.site-footer {
   --surface: var(--ae-navy);
-  --raised: color-mix(in srgb, var(--ae-navy) 86%, var(--ae-sky));
   --text: var(--ae-white);
-  --muted: color-mix(in srgb, var(--ae-white) 78%, var(--ae-navy));
+  --muted: color-mix(in srgb, var(--ae-white) 80%, var(--ae-navy));
   --eyebrow: var(--ae-sky);
-  --rule: color-mix(in srgb, var(--ae-white) 20%, transparent);
+  --rule: color-mix(in srgb, var(--ae-white) 22%, transparent);
   --rule-strong: var(--ae-white);
   --focus: var(--ae-white);
   --button-border: var(--ae-orange);
   --button-hover-bg: var(--ae-white);
   --button-hover-text: var(--ae-navy);
-  --feature-bg: var(--raised);
-  --alt-bg: var(--raised);
-  --alt-eyebrow: var(--ae-sky);
-  --panel-bg: var(--ae-navy);
-  --note-bg: var(--ae-navy);
-  --note-text: var(--ae-white);
   --tag-now-border: var(--ae-sky);
-  --todo-border: var(--ae-orange);
   --motif-a: var(--ae-white);
+  --contour: color-mix(in srgb, var(--ae-sky) 14%, var(--ae-navy));
 }
 
-:root[data-theme="light"] {
-  color-scheme: light;
+/* Light tone: the light theme, and the inverse bands in dark mode. */
+:root[data-theme="light"],
+:root:not([data-theme="light"]) .band-inverse {
   --surface: var(--ae-white);
   --text: var(--ae-navy);
   --muted: var(--ae-gray);
-  --eyebrow: var(--ae-gray);
+  --eyebrow: var(--ae-plum);
   --rule: color-mix(in srgb, var(--ae-gray) 35%, transparent);
   --rule-strong: var(--ae-navy);
   --focus: var(--ae-navy);
   --button-border: var(--ae-navy);
   --button-hover-bg: var(--ae-navy);
   --button-hover-text: var(--ae-white);
-  --feature-bg: var(--ae-navy);
-  --alt-bg: var(--ae-sky);
-  --alt-eyebrow: var(--ae-navy);
-  --panel-bg: var(--ae-white);
-  --note-bg: var(--ae-sky);
-  --note-text: var(--ae-navy);
   --tag-now-border: var(--ae-navy);
   --motif-a: var(--ae-navy);
+  --contour: var(--ae-sky);
 }
 
-/* Navy feature bands stay dark in both themes. */
-.band-feature,
-.site-footer {
-  --text: var(--ae-white);
-  --muted: color-mix(in srgb, var(--ae-white) 78%, var(--ae-navy));
-  --eyebrow: var(--ae-sky);
-  --rule: color-mix(in srgb, var(--ae-white) 20%, transparent);
-  --focus: var(--ae-white);
-  --button-border: var(--ae-orange);
+:root {
+  color-scheme: dark;
+  --phi: 1.618;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+/* Sky plane (tools) and orange focal plane (contact) look the same in both themes. */
+.tone-sky,
+.tone-orange {
+  --text: var(--ae-navy);
+  --muted: var(--ae-navy);
+  --eyebrow: var(--ae-navy);
+  --rule: color-mix(in srgb, var(--ae-navy) 28%, transparent);
+  --rule-strong: var(--ae-navy);
+  --focus: var(--ae-navy);
   --button-hover-bg: var(--ae-white);
   --button-hover-text: var(--ae-navy);
-  --tag-now-border: var(--ae-sky);
-  --todo-border: var(--ae-sky);
-  background: var(--feature-bg);
-  color: var(--text);
 }
 
-.site-footer {
+.tone-sky {
+  --surface: var(--ae-sky);
+  --contour: color-mix(in srgb, var(--ae-navy) 10%, var(--ae-sky));
+}
+
+.tone-orange {
+  --surface: var(--ae-orange);
+  --contour: color-mix(in srgb, var(--ae-navy) 12%, var(--ae-orange));
+}
+
+/* An orange button would vanish on the orange plane, so it turns navy there. */
+.tone-orange .ae-button {
   background: var(--ae-navy);
+  color: var(--ae-white);
+  border-color: var(--ae-navy);
 }
 
 /* Base -------------------------------------------------------------------- */
@@ -106,15 +123,16 @@ h1,
 h2,
 h3 {
   margin: 0;
-  line-height: 1.15;
+  line-height: 1.1;
   font-weight: 700;
   text-wrap: balance;
 }
 
+/* Heading sizes step by phi: 1.375rem, then x phi^2 for sections, x phi^3 for the hero. */
 h3 {
-  font-size: 1.25rem;
-  line-height: 1.3;
-  font-weight: 650;
+  font-size: 1.375rem;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
 }
 
 p {
@@ -137,6 +155,7 @@ button:focus-visible {
 }
 
 .shell {
+  position: relative;
   width: 100%;
   max-width: var(--ae-content);
   margin-inline: auto;
@@ -164,13 +183,15 @@ button:focus-visible {
   display: inline-block;
   border-color: var(--button-border);
   text-decoration: none;
-  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease,
+    translate 0.15s ease;
 }
 
 .ae-button:hover {
   background: var(--button-hover-bg);
   color: var(--button-hover-text);
   border-color: var(--button-hover-bg);
+  translate: 0 -2px;
 }
 
 .ae-button:focus-visible {
@@ -310,38 +331,55 @@ button:focus-visible {
 
 /* Shared section styles --------------------------------------------------- */
 
+.hero,
 .band {
-  padding-block: clamp(3.5rem, 8vw, 6rem);
+  position: relative;
+  overflow: hidden;
+  overflow: clip;
+  background: var(--surface);
+  color: var(--text);
 }
 
-.band-alt {
-  --eyebrow: var(--alt-eyebrow);
-  background: var(--alt-bg);
-}
-
-.band-rule {
-  border-top: 1px solid var(--rule);
+/* Vertical rhythm on a phi scale: 4.236rem (phi^3) up to 6.854rem (phi^4). */
+.band {
+  padding-block: clamp(4.236rem, 9vw, 6.854rem);
 }
 
 .eyebrow {
-  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 1rem;
   color: var(--eyebrow);
   font-size: 0.8125rem;
-  font-weight: 650;
-  letter-spacing: 0.08em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
+/* A short orange bar leads each eyebrow: the shared-center accent. */
+.eyebrow::before {
+  content: "";
+  width: 1.5rem;
+  height: 3px;
+  background: var(--ae-orange);
+}
+
+.tone-orange .eyebrow::before {
+  background: var(--ae-navy);
+}
+
 .section-title {
-  margin-bottom: 1.5rem;
-  font-size: clamp(1.75rem, 3.2vw, 2.5rem);
-  max-width: 24ch;
+  margin-bottom: 1.618rem;
+  font-size: clamp(2.1rem, 4.6vw, 3.6rem);
+  letter-spacing: -0.025em;
+  max-width: 20ch;
 }
 
 .section-intro {
-  max-width: 62ch;
-  margin-bottom: 2.5rem;
-  font-size: 1.125rem;
+  max-width: 60ch;
+  margin-bottom: 2.618rem;
+  font-size: 1.1875rem;
 }
 
 .fine-print {
@@ -349,11 +387,43 @@ button:focus-visible {
   font-size: 0.9375rem;
 }
 
+/* Enlarged a/e contours, cropped at the page edge as framing elements. They sit in
+   open space beside the headings and are hidden below laptop width. */
+.contour {
+  display: none;
+}
+
+@media (min-width: 64rem) {
+  .contour {
+    display: block;
+    position: absolute;
+    z-index: 0;
+    width: clamp(22rem, 34vw, 30rem);
+    height: auto;
+    fill: var(--contour);
+    pointer-events: none;
+  }
+
+  .contour-top {
+    top: -3rem;
+    right: -9rem;
+  }
+
+  .contour-bottom {
+    bottom: -6rem;
+    right: -6rem;
+    rotate: 180deg;
+  }
+
+  .band > .shell {
+    z-index: 1;
+  }
+}
+
 /* Hero -------------------------------------------------------------------- */
 
 .hero {
-  overflow: hidden;
-  padding-block: clamp(3rem, 8vw, 6.5rem) clamp(3.5rem, 8vw, 6rem);
+  padding-block: clamp(3rem, 8vw, 6.854rem) clamp(4.236rem, 9vw, 6.854rem);
 }
 
 .hero-layout {
@@ -363,16 +433,29 @@ button:focus-visible {
 }
 
 .hero h1 {
-  margin-bottom: 1.5rem;
-  font-size: clamp(2.25rem, 5.2vw, 3.75rem);
-  line-height: 1.08;
-  letter-spacing: -0.015em;
-  max-width: 16ch;
+  margin-bottom: 1.618rem;
+  font-size: clamp(2.6rem, 6.6vw, 5.4rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  max-width: 14ch;
+}
+
+/* "every channel" carries the accent: orange on navy, an orange underline on light. */
+.accent {
+  color: var(--ae-orange);
+}
+
+:root[data-theme="light"] .accent {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-color: var(--ae-orange);
+  text-decoration-thickness: 0.12em;
+  text-underline-offset: 0.12em;
 }
 
 .lede {
-  max-width: 58ch;
-  font-size: clamp(1.0625rem, 1.6vw, 1.1875rem);
+  max-width: 54ch;
+  font-size: clamp(1.125rem, 1.6vw, 1.25rem);
 }
 
 /* Stacked rows with one shared tag column, so both tags are the same width
@@ -403,7 +486,7 @@ button:focus-visible {
   flex-wrap: wrap;
   align-items: center;
   gap: 1rem 1.75rem;
-  margin-top: 2rem;
+  margin-top: 2.618rem;
 }
 
 .hero-motif {
@@ -415,6 +498,7 @@ button:focus-visible {
   width: 100%;
   max-width: 24rem;
   height: auto;
+  overflow: visible;
 }
 
 .motif-a {
@@ -431,11 +515,49 @@ button:focus-visible {
 
 .motif-center {
   fill: var(--ae-orange);
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* On load the two halves slide together and the orange center settles in. */
+@media (prefers-reduced-motion: no-preference) {
+  .motif-a {
+    animation: align-a 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s both;
+  }
+
+  .motif-e {
+    animation: align-e 1.1s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s both;
+  }
+
+  .motif-gap,
+  .motif-center {
+    animation: settle 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) 1.05s both;
+  }
+}
+
+@keyframes align-a {
+  from {
+    translate: -36px 0;
+    opacity: 0;
+  }
+}
+
+@keyframes align-e {
+  from {
+    translate: 36px 0;
+    opacity: 0;
+  }
+}
+
+@keyframes settle {
+  from {
+    scale: 0;
+  }
 }
 
 @media (min-width: 56rem) {
   .hero-layout {
-    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1.618fr) minmax(0, 1fr);
   }
 
   .hero-motif svg {
@@ -480,14 +602,14 @@ button:focus-visible {
 
 .service-list {
   display: grid;
-  gap: 2rem;
+  gap: 2.618rem;
   margin-top: 1rem;
 }
 
 @media (min-width: 56rem) {
   .service-list {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0 2.5rem;
+    gap: 0 2.618rem;
   }
 
   /* Share rows across cards so headings and body text line up side by side. */
@@ -500,12 +622,25 @@ button:focus-visible {
 }
 
 .service {
-  padding-top: 1.25rem;
-  border-top: 3px solid var(--rule-strong);
+  position: relative;
+  padding-top: 1.5rem;
+  border-top: 2px solid var(--rule-strong);
+}
+
+/* An orange segment rides the top rule. */
+.service::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: 3.236rem;
+  height: 4px;
+  background: var(--ae-orange);
+  transform-origin: left;
 }
 
 .service h3 {
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.75rem;
 }
 
 /* Tools ------------------------------------------------------------------- */
@@ -532,23 +667,27 @@ button:focus-visible {
   }
 }
 
+/* Navy panels on the sky plane, in both themes. */
 .steps li {
-  padding: 1.5rem;
-  background: var(--panel-bg);
+  padding: 1.618rem;
+  background: var(--ae-navy);
+  color: var(--ae-white);
   border-radius: var(--ae-radius);
 }
 
 .step-num {
   display: block;
-  margin-bottom: 0.5rem;
-  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+  color: var(--ae-orange);
+  font-size: 0.9375rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
 }
 
 .steps h3 {
-  margin-bottom: 0.35rem;
-  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.75rem;
+  letter-spacing: -0.02em;
 }
 
 /* How I work -------------------------------------------------------------- */
@@ -561,7 +700,7 @@ button:focus-visible {
 @media (min-width: 48rem) {
   .principles {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0 2.5rem;
+    gap: 0 2.618rem;
   }
 
   .principles article {
@@ -574,25 +713,25 @@ button:focus-visible {
 
 .principles article {
   padding-top: 1.25rem;
-  border-top: 1px solid var(--rule);
+  border-top: 2px solid var(--rule-strong);
 }
 
 .principles h3 {
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
 
 /* About ------------------------------------------------------------------- */
 
 .about-layout {
   display: grid;
-  gap: 2.5rem;
+  gap: 2.618rem;
   align-items: start;
 }
 
 @media (min-width: 48rem) {
   .about-layout {
-    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-    gap: 4rem;
+    grid-template-columns: minmax(0, 1.618fr) minmax(0, 1fr);
+    gap: 4.236rem;
   }
 }
 
@@ -605,10 +744,11 @@ button:focus-visible {
   font-weight: 650;
 }
 
+/* The name note is a sky panel in both themes. */
 .name-note {
-  padding: 1.75rem;
-  background: var(--note-bg);
-  color: var(--note-text);
+  padding: 2rem;
+  background: var(--ae-sky);
+  color: var(--ae-navy);
   border-radius: var(--ae-radius);
 }
 
@@ -617,10 +757,11 @@ button:focus-visible {
 }
 
 .note-tagline {
-  margin-bottom: 0.5rem;
-  font-size: 1.375rem;
+  margin-bottom: 0.75rem;
+  font-size: 2.1rem;
   font-weight: 700;
-  line-height: 1.25;
+  line-height: 1.1;
+  letter-spacing: -0.025em;
 }
 
 /* Contact and footer ------------------------------------------------------ */
@@ -633,19 +774,20 @@ button:focus-visible {
 
 @media (min-width: 48rem) {
   .contact-layout {
-    grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
-    gap: 4rem;
+    grid-template-columns: minmax(0, 1.618fr) minmax(0, 1fr);
+    gap: 4.236rem;
   }
 }
 
 .contact p {
   max-width: 52ch;
-  font-size: 1.125rem;
+  font-size: 1.1875rem;
 }
 
 .site-footer {
-  padding-block: 2.5rem;
-  border-top: 1px solid var(--rule);
+  padding-block: 2.618rem;
+  background: var(--surface);
+  color: var(--text);
 }
 
 .footer-layout {
@@ -676,4 +818,32 @@ button:focus-visible {
   margin: 0;
   color: var(--muted);
   font-size: 0.9375rem;
+}
+
+/* Scroll reveals ------------------------------------------------------------ */
+
+/* script.js adds .motion to <html> only when it can run the reveals and the
+   visitor hasn't asked for reduced motion, so content is never hidden otherwise. */
+.motion .reveal {
+  opacity: 0;
+  translate: 0 1.25rem;
+  transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+    translate 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+
+.motion .reveal.is-visible {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* Rules draw in from the left as their card arrives. */
+.motion .service.reveal::before {
+  scale: 0 1;
+  transition: scale 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition-delay: calc(var(--i, 0) * 90ms + 250ms);
+}
+
+.motion .service.reveal.is-visible::before {
+  scale: 1 1;
 }

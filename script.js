@@ -78,5 +78,52 @@ document.addEventListener("DOMContentLoaded", () => {
       } catch (e) {}
     });
   }
+
+  // Scroll reveals: content eases into place as it enters the viewport. Skipped
+  // entirely for reduced motion or old browsers, so nothing is ever left hidden.
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduceMotion || !("IntersectionObserver" in window)) return;
+
+  // Containers first; anything inside an element that already reveals is skipped,
+  // so nothing animates twice.
+  const selectors = [
+    ".service-list > *",
+    ".principles > *",
+    ".steps > *",
+    ".about-layout > *",
+    ".contact-layout > *",
+    ".band .eyebrow, .band .section-title, .band .section-intro",
+  ];
+
+  const targets = [];
+  selectors.forEach((selector) => {
+    document.querySelectorAll(selector).forEach((el) => {
+      if (el.closest(".reveal")) return;
+      el.classList.add("reveal");
+      targets.push(el);
+    });
+  });
+
+  // Stagger siblings: each element waits a beat after the one before it.
+  targets.forEach((el) => {
+    const siblings = Array.from(el.parentElement.children).filter((c) =>
+      c.classList.contains("reveal")
+    );
+    el.style.setProperty("--i", String(siblings.indexOf(el)));
+  });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      });
+    },
+    { rootMargin: "0px 0px -8% 0px", threshold: 0.12 }
+  );
+
+  targets.forEach((el) => observer.observe(el));
+  root.classList.add("motion");
 });
 
