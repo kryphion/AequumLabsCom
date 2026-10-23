@@ -375,10 +375,12 @@ button:focus-visible {
   font-size: clamp(1.0625rem, 1.6vw, 1.1875rem);
 }
 
+/* Stacked rows with one shared tag column, so both tags are the same width
+   and both labels start at the same point. */
 .status-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.75rem;
+  display: grid;
+  grid-template-columns: max-content minmax(0, 1fr);
+  gap: 0.75rem 0.85rem;
   margin: 1.75rem 0 0;
   padding: 0;
   list-style: none;
@@ -386,9 +388,10 @@ button:focus-visible {
 }
 
 .status-list li {
-  display: flex;
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
   align-items: center;
-  gap: 0.6rem;
 }
 
 .status-list .tag {
@@ -483,8 +486,16 @@ button:focus-visible {
 
 @media (min-width: 56rem) {
   .service-list {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 2.5rem;
+  }
+
+  /* Share rows across cards so headings and body text line up side by side. */
+  .service {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    align-content: start;
   }
 }
 
@@ -509,8 +520,15 @@ button:focus-visible {
 
 @media (min-width: 48rem) {
   .steps {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 1.25rem;
+  }
+
+  .steps li {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    align-content: start;
   }
 }
 
@@ -542,8 +560,15 @@ button:focus-visible {
 
 @media (min-width: 48rem) {
   .principles {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0 2.5rem;
+  }
+
+  .principles article {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    align-content: start;
   }
 }
 
@@ -573,6 +598,11 @@ button:focus-visible {
 
 .about-layout p {
   max-width: 60ch;
+}
+
+.about-layout .role {
+  color: var(--eyebrow);
+  font-weight: 650;
 }
 
 .name-note {
