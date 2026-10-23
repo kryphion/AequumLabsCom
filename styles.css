@@ -466,18 +466,27 @@ button:focus-visible {
   font-size: clamp(1.125rem, 1.6vw, 1.25rem);
 }
 
-/* Stacked rows with one shared tag column, so both tags are the same width
-   and both labels start at the same point. The hero button below uses the same
-   width (--hero-col), so tags and button form one aligned column. */
-.hero-copy {
-  --hero-col: 10rem;
+/* The tags, the button, and the text beside them all sit on one two-column grid:
+   tags and button share the left column (same width), and the labels and the
+   "See what I'm building" link share the right column (same starting point). */
+.hero-offer {
+  display: grid;
+  grid-template-columns: minmax(10rem, max-content) minmax(0, 1fr);
+  column-gap: 0.85rem;
+  margin-top: 1.75rem;
+}
+
+.status-list,
+.hero-actions {
+  display: grid;
+  grid-column: 1 / -1;
+  grid-template-columns: subgrid;
+  align-items: center;
 }
 
 .status-list {
-  display: grid;
-  grid-template-columns: minmax(var(--hero-col), max-content) minmax(0, 1fr);
-  gap: 0.75rem 0.85rem;
-  margin: 1.75rem 0 0;
+  row-gap: 0.75rem;
+  margin: 0;
   padding: 0;
   list-style: none;
   font-weight: 600;
@@ -494,17 +503,16 @@ button:focus-visible {
   margin: 0;
 }
 
+.hero-actions {
+  margin-top: 2.618rem;
+}
+
 .hero-actions .ae-button {
-  min-width: var(--hero-col);
   text-align: center;
 }
 
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 1rem 1.75rem;
-  margin-top: 2.618rem;
+.hero-actions .text-link {
+  justify-self: start;
 }
 
 .hero-motif {
